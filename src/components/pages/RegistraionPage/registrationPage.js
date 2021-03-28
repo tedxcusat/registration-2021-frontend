@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import Navbar from '../../common/NavBar'
+import Confetti from 'react-confetti'
 
 import { appContext } from "../../../appContext";
 
@@ -15,6 +16,7 @@ function RegistrationPage() {
     let [hasSentVerification, setHasSentVerification] = useState(false)
     let [userEmail,setUserEmail] = useState(null)
     let [userOTP,setUserOTP] = useState(null)
+    let [showConfetti,setShowConfetti] = useState(false)
     
     let handleEmailFormChange = (e) =>{
         setUserEmail({'email': e.target.value})
@@ -37,6 +39,7 @@ function RegistrationPage() {
                 console.log(status);
                 console.log(data);
                 if(data.status === 201){
+                    
                     setReqOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
                     setHasSentVerification(true)
                 }else{
@@ -76,6 +79,7 @@ function RegistrationPage() {
                 console.log(status);
                 console.log(data);
                 if(data.status === 201){
+                    setShowConfetti(true)
                     setRegistrationApiMsg({msg: "Registration Sucessfull", isError: false})
                 }else{
                     setRegistrationApiMsg({msg: data.message, isError: true})
@@ -91,6 +95,7 @@ function RegistrationPage() {
                 {
                     !isVerified && !hasSentVerification &&
                     <div>
+                      
                         <p className="page-subtitle-2">Let's verify your payment first:</p>
                         <form onChange={handleEmailFormChange} onSubmit={sendVerificationRequest}>
                             <div className="form-item-row">
@@ -120,7 +125,12 @@ function RegistrationPage() {
                 {   
                     isVerified &&
                     <div>
-
+                        { 
+                            showConfetti &&  <Confetti
+                                width={window.innerWidth}
+                                height={window.innerHeight}
+                                />
+                        }
                         <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
                             <div className="form-item-row">
                                 <label htmlFor="customerName">Name:</label>
@@ -144,7 +154,8 @@ function RegistrationPage() {
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="gender">Gender:</label>
-                                <select className="multiselect-input" required name="gender" defaultValue="M">
+                                <select className="multiselect-input" required name="gender" defaultValue="def">
+                                    <option value="def">Select One</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                     <option value="Other">Other</option>
