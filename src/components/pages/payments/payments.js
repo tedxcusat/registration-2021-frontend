@@ -12,7 +12,10 @@ function Payments() {
     return (
         <div>
             <h1>Payments Page</h1>
-            <p>Instructions here</p>
+            <h3>Instructions for the payment</h3>
+                <p>Step1: complete the payment</p>
+                <p>Step2: email verifiction followed by register</p>
+                <p>Step3: Login</p>
             <form id="tedx-payment-button"></form>
         </div>
     )
