@@ -24,7 +24,7 @@ function NavBar({activePage}) {
                         </Link>
                     </div>
                     <div className={`nav-link ${location.pathname ==="/payment" ? 'nav-link-active' : 0 }`}>
-                        <Link style={{ textDecoration: 'none' }} to="/payemnt">
+                        <Link style={{ textDecoration: 'none' }} to="/payment">
                             <p>Ticketing</p>
                         </Link>
                     </div>
