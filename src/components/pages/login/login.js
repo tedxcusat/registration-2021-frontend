@@ -15,12 +15,13 @@ function Login() {
         e.preventDefault()
         api.post('/login',formData).then(({status,data})=> {
             console.log(data);
-            if(status===200){
+            if(data.status===201){
                 setApiMsg({
                     isError: false,
                     msg: "Successfully loggined"
                 })
-            }else if(status!==200){
+                localStorage.setItem('tedx-cusat-token-data',JSON.stringify(data))
+            }else if(data.status!==201){
                 setApiMsg({
                     isError: true,
                     msg: "Some Error occur red."
