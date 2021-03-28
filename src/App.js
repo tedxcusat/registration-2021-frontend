@@ -13,6 +13,7 @@ import Login from './components/pages/login/login'
 import { appContext } from './appContext'
 import apiUrl from './serverConfig'
 import axios from 'axios'
+import RegistrationPage from './components/pages/RegistraionPage/registrationPage';
 
 let api = axios.create({
   baseURL: apiUrl
@@ -32,7 +33,9 @@ export default function App() {
           <Route exact path="/payment">
             <PaymentPage />
           </Route>
-          
+          <Route exact path="/registration">
+            <RegistrationPage />
+          </Route>
           <Route exact path="/login">
             <Login />
           </Route>

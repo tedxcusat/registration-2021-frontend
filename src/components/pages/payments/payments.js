@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import ticketIcon from '../../assets/ticket.png'
+import NavBar from '../../common/NavBar'
 
 
 function Payments() {
@@ -14,17 +15,20 @@ function Payments() {
     },[])
     return (
         <StyledTicketPage>
-            <h1>Get a Ticket</h1>
-            {/* <img className="tedxcusat-ticket" src={ticketIcon} alt=""/> */}
-            <div className="important-instruction">
-                <h3 className="important-instruction-title">Important Instructions:</h3>
-                <p className="important-steps"><span className="imp-step">Step 1:</span> Pay <span className="ticket-price-card">₹199</span> for ticket.</p>
-                <p className="important-steps"><span className="imp-step">Step 2:</span> After Sucessfull payment, you will be prompted to verify your payment.</p>
-                <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull verification, fill the registration form.</p>
-                <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
-                <p className="ticket-price">Ticket Price: ₹199</p>
-                <form id="tedx-payment-button"></form>
-                <p className="ticket-price">After Sucessfull payment, register yourself <Link style={{ color: 'black'}} to="/register">here</Link></p>
+            <NavBar />
+            <div className="page-container">
+                <h1 className="ticket-page-title">Get a Ticket</h1>
+                <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>
+                <div className="important-instruction">
+                    <h3 className="important-instruction-title">Important Instructions:</h3>
+                    <p className="important-steps"><span className="imp-step">Step 1:</span> Pay <span className="ticket-price-card">₹199</span> for ticket.</p>
+                    <p className="important-steps"><span className="imp-step">Step 2:</span> After Sucessfull payment, you will be prompted to verify your payment.</p>
+                    <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull verification, fill the registration form.</p>
+                    <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
+                    <p className="ticket-price">Ticket Price: ₹199</p>
+                    <form id="tedx-payment-button"></form>
+                    <p className="ticket-price">After Sucessfull payment, register yourself <Link style={{ color: 'black'}} to="/register">here</Link></p>
+                </div>
             </div>
         </StyledTicketPage>
     )
@@ -34,17 +38,27 @@ export default Payments
 
 let StyledTicketPage = styled.section`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow: hidden;
     max-width: 100vw;
     box-sizing: border-box;
     /* background-color: blue; */
-    box-sizing: border-box;
+    padding-left: 350px;
     margin: 0;
+    .page-container{
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .ticket-page-title{
+        font-size: 45px;
+    }
     .tedxcusat-ticket{
         width: 500px;
     }
     .important-instruction{
+        margin-top: 50px;
+        margin-bottom: 100px;
         min-width: 300px;
         width: 90vw;
         border-radius: 10px;
