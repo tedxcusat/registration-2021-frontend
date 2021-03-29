@@ -106,12 +106,45 @@ let StyledTicketPage = styled.section`
     .ticket-price{
         font-weight: bold;
     }
+    @media screen and (max-width: 1080px){
+        padding-left: 220px;
+        .tedxcusat-ticket{
+            width: 90%;
+            max-width: 300px;
+        }
+        #tedx-payment-button{
+            transform: scale(1);
+        }
+        .important-instruction{
+            width: 95%;
+            align-self: center;
+        }
+        .important-instruction-title{
+            font-size: 18px;
+        }
+        .important-steps{
+            font-size: 15px;
+        }
+        .ticket-price{
+            font-size: 15px;
+        }
+        
+    }
+    @media screen and (max-width: 700px){
+        padding-left: 10px;
+        padding-top: 50px;
+        .ticket-page-title{
+            font-size: 30px;
+            text-align: center;
+        }
+        .tedxcusat-ticket{
+            align-self: center;
+        }
+    }
     @media screen and (max-width: 468px){
         .important-instruction-title{
             font-size: 25px;
         }
-        /* .important-instruction{
-            width: 100%!important;
-        } */
     }
+
 `

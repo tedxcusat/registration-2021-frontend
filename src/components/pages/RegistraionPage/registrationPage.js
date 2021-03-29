@@ -226,6 +226,7 @@ export default RegistrationPage
 let StyledPage = styled.div`
     margin-left: 350px;
     overflow: hidden;
+    padding-bottom: 80px;
     .auto-verification-modal-container{
         width: 100vw;
         height: 100vh;
@@ -383,5 +384,29 @@ let StyledPage = styled.div`
         font-size: 18px;
         font-family: 'Poppins', sans-serif;
 
+    }
+    @media screen and (max-width: 1080px){
+        margin-left: 220px;
+    }
+    @media screen and (max-width: 700px){
+        margin-left: 20px;
+        margin-top: 50px;
+        .page-title{
+            font-size: 28px;   
+        }
+        .page-subtitle{
+            font-size: 15px;
+        }
+        .page-subtitle-2{
+            font-size: 15px;
+        }
+    }
+    @media screen and (max-width: 468px){
+        input{
+            width: 90%;
+        }
+        .address-input{
+            width: 90%
+        }
     }
 `
