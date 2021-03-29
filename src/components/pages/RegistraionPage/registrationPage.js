@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import Navbar from '../../common/NavBar'
-
+import { motion, AnimatePresence } from "framer-motion"
 import { appContext } from "../../../appContext";
 
 
@@ -88,91 +88,108 @@ function RegistrationPage() {
             <Navbar />
                 <h1 className="page-title">Registration</h1>
                 <p className="page-subtitle">Welcome to Registration! Your final step for acquiring your Ticket!</p>
-                {
-                    !isVerified && !hasSentVerification &&
-                    <div>
-                        <p className="page-subtitle-2">Let's verify your payment first:</p>
-                        <form onChange={handleEmailFormChange} onSubmit={sendVerificationRequest}>
-                            <div className="form-item-row">
-                                <label>E-mail:</label>
-                                <input name="email" placeholder="Ex: someone@internet.org" type="email" required/>
-                            </div>
-                            <button className="submit-button-1" type="submit" >Send OTP</button>
-                        </form>
-                        {reqOtpApiMsg  && <p className={reqOtpApiMsg.isError ? "error-message" : "success-message" }>{reqOtpApiMsg.msg}</p>}
-                    </div>
-                }
-                {
-                    !isVerified && hasSentVerification &&
-                    <div>
-                        <p className="page-subtitle-2">Please Check your E-mail for the OTP:</p>
-                        <form onChange={handleOTPFormChange} onSubmit={verifyOTP}>
-                            <div className="form-item-row">
-                                <label>OTP:</label>
-                                <input className="otp-input" type="text" required/>
-                            </div>
-                            <button className="submit-button-1" type="submit">Verify OTP</button>
-                            <button style={{marginLeft: 10}} className="submit-button-2" >Resend OTP</button>
-                        </form>
-                        { verifyOtpApiMsg &&  <p className={verifyOtpApiMsg.isError ? "error-message" : "success-message" }>{verifyOtpApiMsg.msg}</p>}
-                    </div>
-                }
-                {   
-                    isVerified &&
-                    <div>
+                <AnimatePresence>
+                    {
+                        !isVerified && !hasSentVerification &&
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1}}
+                            exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        >
+                            <p className="page-subtitle-2">Automatic verification failed? <br/> Don't worry! Let's verify your payment manually:</p>
+                            <form onChange={handleEmailFormChange} onSubmit={sendVerificationRequest}>
+                                <div className="form-item-row">
+                                    <label>E-mail:</label>
+                                    <input name="email" placeholder="Ex: someone@internet.org" type="email" required/>
+                                </div>
+                                <button className="submit-button-1" type="submit" >Send OTP</button>
+                            </form>
+                            {reqOtpApiMsg  && <p className={reqOtpApiMsg.isError ? "error-message" : "success-message" }>{reqOtpApiMsg.msg}</p>}
+                        </motion.div>
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {
+                        !isVerified && hasSentVerification &&
+                        <motion.div
+                            initial={{ opacity: 0}}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        >
+                            <p className="page-subtitle-2">Please Check your E-mail for the OTP:</p>
+                            <form onChange={handleOTPFormChange} onSubmit={verifyOTP}>
+                                <div className="form-item-row">
+                                    <label>OTP:</label>
+                                    <input className="otp-input" type="text" required/>
+                                </div>
+                                <button className="submit-button-1" type="submit">Verify OTP</button>
+                                <button style={{marginLeft: 10}} className="submit-button-2" >Resend OTP</button>
+                            </form>
+                            { verifyOtpApiMsg &&  <p className={verifyOtpApiMsg.isError ? "error-message" : "success-message" }>{verifyOtpApiMsg.msg}</p>}
+                        </motion.div>
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {   
+                        isVerified &&
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        >
+                            <p className="page-subtitle-2">Payment Verified Sucessfully, Please enter following details to complete your account:</p>
+                            <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
+                                <div className="form-item-row">
+                                    <label htmlFor="customerName">Name:</label>
+                                    <input required name="customerName" type="text"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="email">E-mail:</label>
+                                    <input required defaultValue={userEmail.email} disabled name="email" type="email" />
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="password">Password</label>
+                                    <input required name="password" type="password"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="repassword">Repeat Password</label>
+                                    <input required name="repassword" type="password"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="phoneNo">Phone Number:</label>
+                                    <input required name="phoneNo" type="text"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="gender">Gender:</label>
+                                    <select className="multiselect-input" required name="gender" defaultValue="M">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="age">Age:</label>
+                                    <input required name="age" type="text"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="houseName">House Name:</label>
+                                    <input required name="houseName" type="text"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="address">Address:</label>
+                                    <textarea className="address-input" required name="address" type="text"/>
+                                </div>
+                                <div className="form-item-row">
+                                    <label htmlFor="pin">Pincode:</label>
+                                    <input required name="pin" type="number"/>
+                                </div>
+                                <button className="submit-button-1" type="submit">Submit</button>
+                            </form>
+                            { registrationApiMsg &&  <p className={registrationApiMsg.isError ? "error-message" : "success-message" }>{registrationApiMsg.msg}</p>}
 
-                        <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
-                            <div className="form-item-row">
-                                <label htmlFor="customerName">Name:</label>
-                                <input required name="customerName" type="text"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="email">E-mail:</label>
-                                <input required defaultValue={userEmail.email} disabled name="email" type="email" />
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="password">Password</label>
-                                <input required name="password" type="password"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="repassword">Repeat Password</label>
-                                <input required name="repassword" type="password"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="phoneNo">Phone Number:</label>
-                                <input required name="phoneNo" type="text"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="gender">Gender:</label>
-                                <select className="multiselect-input" required name="gender" defaultValue="M">
-                                    <option value="M">Male</option>
-                                    <option value="F">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="age">Age:</label>
-                                <input required name="age" type="text"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="houseName">House Name:</label>
-                                <input required name="houseName" type="text"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="address">Address:</label>
-                                <textarea className="address-input" required name="address" type="text"/>
-                            </div>
-                            <div className="form-item-row">
-                                <label htmlFor="pin">Pincode:</label>
-                                <input required name="pin" type="number"/>
-                            </div>
-                            <button className="submit-button-1" type="submit">Submit</button>
-                        </form>
-                        { registrationApiMsg &&  <p className={registrationApiMsg.isError ? "error-message" : "success-message" }>{registrationApiMsg.msg}</p>}
-
-                    </div>
-                }
-               
+                        </motion.div>
+                    }
+               </AnimatePresence>
         </StyledPage> 
     )
 }
@@ -182,6 +199,7 @@ export default RegistrationPage
 
 let StyledPage = styled.div`
     margin-left: 350px;
+    overflow: hidden;
     .page-title{
         font-size: 45px;
         margin: 0;
