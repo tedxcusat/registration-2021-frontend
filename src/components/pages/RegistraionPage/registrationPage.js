@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import Navbar from '../../common/NavBar'
 import { motion, AnimatePresence } from "framer-motion"
+import Confetti from 'react-confetti'
+
 import { appContext } from "../../../appContext";
 
 
@@ -15,6 +17,7 @@ function RegistrationPage() {
     let [hasSentVerification, setHasSentVerification] = useState(false)
     let [userEmail,setUserEmail] = useState(null)
     let [userOTP,setUserOTP] = useState(null)
+    let [showConfetti,setShowConfetti] = useState(false)
     
     let handleEmailFormChange = (e) =>{
         setUserEmail({'email': e.target.value})
@@ -37,6 +40,7 @@ function RegistrationPage() {
                 console.log(status);
                 console.log(data);
                 if(data.status === 201){
+                    
                     setReqOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
                     setHasSentVerification(true)
                 }else{
@@ -76,6 +80,7 @@ function RegistrationPage() {
                 console.log(status);
                 console.log(data);
                 if(data.status === 201){
+                    setShowConfetti(true)
                     setRegistrationApiMsg({msg: "Registration Sucessfull", isError: false})
                 }else{
                     setRegistrationApiMsg({msg: data.message, isError: true})
@@ -136,7 +141,13 @@ function RegistrationPage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-                        >
+                        >   { 
+                                showConfetti &&
+                                    <Confetti
+                                        width={window.innerWidth}
+                                        height={window.innerHeight}
+                                    />
+                            }
                             <p className="page-subtitle-2">Payment Verified Sucessfully, Please enter following details to complete your account:</p>
                             <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
                                 <div className="form-item-row">
