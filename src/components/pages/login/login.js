@@ -122,8 +122,36 @@ let StyledPage = styled.div`
         font-size: 15px;
         cursor: pointer;
         outline: none;
+        width: 95%;
+        max-width: 370px;
         /* margin-top: 10px; */
     }
 
-
+    @media screen and (max-width: 1080px){
+        margin-left: 220px;
+    }
+    @media screen and (max-width: 700px){
+        margin-left: 20px;
+        margin-top: 80px;
+        .page-title{
+            font-size: 28px;   
+        }
+        .page-subtitle{
+            font-size: 15px;
+        }
+        .page-subtitle-2{
+            font-size: 15px;
+        }
+    }
+    @media screen and (max-width: 468px){
+        input{
+            width: 90%;
+        }
+        .submit-button-1{
+            max-width: 100%;
+        }
+        .address-input{
+            width: 90%
+        }
+    }
 `

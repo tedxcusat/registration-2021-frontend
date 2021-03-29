@@ -215,6 +215,7 @@ let StyledHamMenu = styled(motion.div)`
     background-color: white;
     box-shadow: 0 10px 50px rgb(0 0 0 / 37%);
     box-sizing: border-box;
+    top: 0;
     left: 0;
     padding: 20px;
     padding-top: 35px;
