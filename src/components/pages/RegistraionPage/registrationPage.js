@@ -4,12 +4,18 @@ import Navbar from '../../common/NavBar'
 import { motion, AnimatePresence } from "framer-motion"
 import Confetti from 'react-confetti'
 import spinner from "../../assets/spinner.svg"
+import ticketIcon from '../../assets/ticket.png'
+import { Link, Redirect } from 'react-router-dom'
+
 
 import { appContext } from "../../../appContext";
+import { useLocation } from 'react-router-dom'
 
 
 function RegistrationPage() {
-    let { api } = useContext(appContext)
+    let { api, isAuthenticated} = useContext(appContext)
+    const location = useLocation();
+    let payment_id = location.search.replace('?payment_id=', '')
     let [reqOtpApiMsg,setReqOtpApiMsg] = useState(null)
     let [verifyOtpApiMsg,setVerifyOtpApiMsg] = useState(null)
     let [registrationApiMsg,setRegistrationApiMsg] = useState(null)
@@ -21,7 +27,24 @@ function RegistrationPage() {
     let [showConfetti,setShowConfetti] = useState(false)
     let [verificationModalMsg,setVerificationModalMsg] = useState(null)
     useEffect(()=>{
-        setVerificationModalMsg("Verifying Payment...")
+        if(payment_id){
+            setVerificationModalMsg("Verifying Payment...")
+            api.post("/automaticEmailVerification",{'paymentId': payment_id})
+                .then(({status,data})=>{
+                        console.log(status);
+                        console.log(data);
+                        if(data.status === 201){
+                            setVerificationModalMsg(null)
+                            setUserEmail({'email': data.customerEmail})
+                            setIsVerified(true)
+                        }else{
+                            setVerificationModalMsg(null)
+                        }
+                }).catch((error)=>{
+                    setVerificationModalMsg(null)
+                })
+        }
+
     },[])
     let handleEmailFormChange = (e) =>{
         setUserEmail({'email': e.target.value})
@@ -50,6 +73,26 @@ function RegistrationPage() {
                 }else{
                     setReqOtpApiMsg({msg: data.message, isError: true} )
                 }
+            }).catch((error)=>{
+                setReqOtpApiMsg({msg: 'OTP Sending failed.', isError: true})
+            })
+    }
+    let resendVerificationRequest = (e) =>{
+        setVerifyOtpApiMsg({msg: 'Re-sending OTP....', isError: false})
+        e.preventDefault()
+        api.post("/sendOTP",userEmail)
+            .then(({status,data})=>{
+                console.log(status);
+                console.log(data);
+                if(data.status === 201){
+                    
+                    setVerifyOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
+                    setHasSentVerification(true)
+                }else{
+                    setVerifyOtpApiMsg({msg: data.message, isError: true} )
+                }
+            }).catch((error)=>{
+                setVerifyOtpApiMsg({msg: 'OTP Sending failed. Please Retry', isError: true})
             })
     }
 
@@ -65,8 +108,11 @@ function RegistrationPage() {
                 }else{
                     setVerifyOtpApiMsg({msg: data.message, isError: true})
                 }
+            }).catch((error)=>{
+                setVerifyOtpApiMsg({msg: 'Verification failed. Please try again', isError: true})
             })
     }
+    
     let sendRegistraionToAPi = (e) =>{
         e.preventDefault()
         if(formData.password !== formData.repassword) {
@@ -89,12 +135,15 @@ function RegistrationPage() {
                 }else{
                     setRegistrationApiMsg({msg: data.message, isError: true})
                 }
+            }).catch((error)=>{
+                setRegistrationApiMsg({msg: 'Regsitration Failed. Please try again.', isError: true})
             })
     }
     
     return (
         <StyledPage>
             <Navbar />
+            {isAuthenticated && <Redirect to="/stream" />}
             <AnimatePresence>
             { 
                 verificationModalMsg && 
@@ -143,7 +192,7 @@ function RegistrationPage() {
                                 <input className="otp-input" type="text" required/>
                             </div>
                             <button className="submit-button-1" type="submit">Verify OTP</button>
-                            <button style={{marginLeft: 10}} className="submit-button-2" >Resend OTP</button>
+                            <button onClick={resendVerificationRequest} style={{marginLeft: 10}} className="submit-button-2" >Resend OTP</button>
                         </form>
                         { verifyOtpApiMsg &&  <p className={verifyOtpApiMsg.isError ? "error-message" : "success-message" }>{verifyOtpApiMsg.msg}</p>}
                     </motion.div>
@@ -158,10 +207,31 @@ function RegistrationPage() {
                         exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
                     >   { 
                             showConfetti &&
-                                <Confetti
-                                    width={window.innerWidth}
-                                    height={window.innerHeight}
-                                />
+                            <>
+                                <div className="confetti-container">
+                                    <Confetti
+                                        width={window.innerWidth}
+                                        height={window.innerHeight}
+                                        className="payment-sucess-confetti"
+                                    />
+                                    <div className="congrats-modal">
+                                        <p className="congrats-modal-title">Thank you {formData.customerName} for registring for the event!</p>
+                                        <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>
+                                        <p className="congrats-modal-subtitle">You can now login!</p>
+                                        <Link 
+                                            style={{
+                                                textDecoration: 'none',
+                                                display: "flex",
+                                                justifyContent: 'center',
+                                                marginTop: 20
+                                            }}
+                                        to="/login">
+                                            <button style={{marginLeft: 'auto',marginRight: 'auto'}}  className="submit-button-1" >Goto Login</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="confetti-container-backdrop"></div>
+                            </>
                         }
                         <p className="page-subtitle-2">Payment Verified Sucessfully, Please enter following details to complete your account:</p>
                         <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
@@ -187,7 +257,8 @@ function RegistrationPage() {
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="gender">Gender:</label>
-                                <select className="multiselect-input" required name="gender" defaultValue="M">
+                                <select className="multiselect-input" required name="gender" defaultValue="">
+                                    <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                     <option value="Other">Other</option>
@@ -385,6 +456,62 @@ let StyledPage = styled.div`
         font-family: 'Poppins', sans-serif;
 
     }
+    .confetti-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 80%;
+            margin: 40px 0;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,0%)
+
+        }
+        .congrats-modal-title{
+            font-size: 28px;
+            padding: 0;
+            margin: 0;
+            font-weight: 600;
+            text-align: center;
+        }
+        .congrats-modal-subtitle{
+            font-size: 18px;
+            padding: 0;
+            margin: 0;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+    .confetti-container-backdrop{
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.397);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 95;
+    }
+    .congrats-modal{
+        width: 80vw;
+        min-width: 200px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        border: solid 2px black;
+        position: fixed;
+        max-width: 800px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
     @media screen and (max-width: 1080px){
         margin-left: 220px;
     }
@@ -407,6 +534,14 @@ let StyledPage = styled.div`
         }
         .address-input{
             width: 90%
+        }
+        .congrats-modal{
+            min-width: 80vw;
+            width: 80vw;
+            max-width: 80vw;
+        }
+        .congrats-modal-title{
+            font-size: 20px!important;
         }
     }
 `

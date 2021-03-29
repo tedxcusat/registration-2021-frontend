@@ -7,61 +7,18 @@ import NavBar from '../../common/NavBar';
 import { Redirect } from 'react-router-dom'
 
 function Login() {
-    let { api, setTokenData, isAuthenticated, setIsAuthenticated} = useContext(appContext)
-    let [formData,setFormData] = useState({})
-    let [apiMsg,setApiMsg] = useState(null)
-    let handleFormChange = (e)=>{
-        setFormData({  ...formData , [e.target.name] : e.target.value })
-        console.log(formData);
-    }
-    let handleFormSubmit = (e)=>{
-        e.preventDefault()
-        setApiMsg({
-            isError: false,
-            msg: "Logging in...."
-        })
-        api.post('/login',formData).then(({status,data})=> {
-            console.log(data);
-            if(data.status===201){
-                setApiMsg({
-                    isError: false,
-                    msg: "Successfully loggined"
-                })
-                localStorage.setItem('tedx-cusat-token-data',JSON.stringify(data))
-                setTokenData(data)
-                setIsAuthenticated(true)
-                console.log(JSON.stringify(data));
-            }else if(data.status!==201){
-                setApiMsg({
-                    isError: true,
-                    msg: "Error occurred. Please check username & password."
-                })
-                setTokenData(null)
-                setIsAuthenticated(false)
-            }
-        })
-    }
+    let { setTokenData, isAuthenticated,setIsAuthenticated} = useContext(appContext)
+
+    useEffect(()=>{
+        localStorage.removeItem("tedx-cusat-token-data")
+        setTokenData(null)
+        setIsAuthenticated(false)
+    },[])
     return(
         <StyledPage>
+            {isAuthenticated && <Redirect to="/" />}
             <NavBar />
-            {isAuthenticated && <Redirect to="/stream" />}
-            <h1 className="page-title">Login Page</h1>
-            <p className="page-subtitle">Before you login make sure you have complete the payment and registration</p>
-            <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
-                <div className="form-item-row">
-                    <label htmlFor="customerEmail">Email Id:</label>
-                    <input type="customerEmail" name="emailId" required/>
-                </div>
-                <div className="form-item-row">
-                    <label>Password:</label>
-                    <input type="password" name="password"  required/>
-                </div>
-                <input className="submit-button-1" type="submit" value="Login" />
-            </form>
-            <Link  to="/payment">
-                <h2 className="not-yet-registered">Not yet registered? Get your tickets now!</h2>
-            </Link>
-            { apiMsg &&  <p className={apiMsg.isError ? "error-message" : "success-message" }>{apiMsg.msg}</p>}
+            <h1 className="page-title">Logging out...</h1>
         </StyledPage>
     );
 }
@@ -70,6 +27,11 @@ export default Login;
 
 let StyledPage = styled.div`
     margin-left: 310px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     .page-title{
         font-size: 45px;
         margin: 0;

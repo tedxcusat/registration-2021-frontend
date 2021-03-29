@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import ticketIcon from '../../assets/ticket.png'
 import NavBar from '../../common/NavBar'
-
+import { appContext } from "../../../appContext";
+import { Redirect } from 'react-router-dom'
 
 function Payments() {
+    let { isAuthenticated } = useContext(appContext)
     useEffect(()=>{
         const Script = document.createElement("script");
         const Form = document.getElementById('tedx-payment-button');
@@ -16,6 +18,7 @@ function Payments() {
     return (
         <StyledTicketPage>
             <NavBar />
+            {isAuthenticated && <Redirect to="/stream" />}
             <div className="page-container">
                 <h1 className="ticket-page-title">Get a Ticket</h1>
                 <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>

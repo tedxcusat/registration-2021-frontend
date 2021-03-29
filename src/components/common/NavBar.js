@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/logo.png'
 import { useLocation, Link } from 'react-router-dom'
 import HamburgerMenu from 'react-hamburger-menu'
 import { AnimatePresence, motion } from 'framer-motion';
+import { appContext } from "../../appContext";
 
 function NavBar({activePage}) {
+    let { isAuthenticated } = useContext(appContext)
     const location = useLocation();
     let [isHamOpen,setIsHamOpen] = useState(false)
     console.log(location);
@@ -27,23 +29,29 @@ function NavBar({activePage}) {
                             <p>Stream</p>
                         </Link>
                     </div>
-                    <div className={`nav-link ${location.pathname ==="/payment" ? 'nav-link-active' : '' }`}>
-                        <Link style={{ textDecoration: 'none' }} to="/payment">
-                            <p>Ticketing</p>
-                        </Link>
-                    </div>
+                    { 
+                    !isAuthenticated &&
+                        <div className={`nav-link ${location.pathname ==="/payment" ? 'nav-link-active' : '' }`}>
+                            <Link style={{ textDecoration: 'none' }} to="/payment">
+                                <p>Ticketing</p>
+                            </Link>
+                        </div>
+                    }
+                    { 
+                    !isAuthenticated &&
                     <div className={`nav-link ${location.pathname ==="/registration" ? 'nav-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to="/registration">
                             <p>Registration</p>
                         </Link>
                     </div>
+                    }
                 </div>
 
             </div>
             <div className="nav-links-container">
                 <div className={`nav-link ${location.pathname ==="/login" ? 'nav-link-active' : '' }`}>
-                    <Link style={{ textDecoration: 'none' }} to="/login">
-                        <p>Login</p>
+                    <Link style={{ textDecoration: 'none' }} to={`/${isAuthenticated ? "logout" : "login"}`}>
+                        <p>{isAuthenticated ? "Logout" : "Login"}</p>
                     </Link>
                 </div>
             </div>
@@ -89,9 +97,9 @@ function NavBar({activePage}) {
                             </Link>
                         </div>
                         <div className={`ham-link ${location.pathname ==="/login" ? 'ham-link-active' : '0' }`}>
-                            <Link style={{ textDecoration: 'none' }} to="/login">
-                                <p>Login</p>
-                            </Link>
+                        <Link style={{ textDecoration: 'none' }} to={`/${isAuthenticated ? "logout" : "login"}`}>
+                            <p>{isAuthenticated ? "Logout" : "Login"}</p>
+                        </Link>
                         </div>
                     </div>
                 </StyledHamMenu>
