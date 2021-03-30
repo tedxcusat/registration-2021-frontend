@@ -10,7 +10,6 @@ function NavBar({activePage}) {
     let { isAuthenticated } = useContext(appContext)
     const location = useLocation();
     let [isHamOpen,setIsHamOpen] = useState(false)
-    console.log(location);
     return (
     <>
         <StyledNavbar

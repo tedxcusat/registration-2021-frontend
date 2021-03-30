@@ -31,8 +31,6 @@ function RegistrationPage() {
             setVerificationModalMsg("Verifying Payment...")
             api.post("/automaticEmailVerification",{'paymentId': payment_id})
                 .then(({status,data})=>{
-                        console.log(status);
-                        console.log(data);
                         if(data.status === 201){
                             setVerificationModalMsg(null)
                             setUserEmail({'email': data.customerEmail})
@@ -56,7 +54,6 @@ function RegistrationPage() {
     
     let handelFormChange = (e) =>{
         setFormData({...formData, [e.target.name] : e.target.value})
-        console.log(formData);
     }
     
     let sendVerificationRequest = (e) =>{
@@ -64,8 +61,6 @@ function RegistrationPage() {
         e.preventDefault()
         api.post("/sendOTP",userEmail)
             .then(({status,data})=>{
-                console.log(status);
-                console.log(data);
                 if(data.status === 201){
                     
                     setReqOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
@@ -82,8 +77,6 @@ function RegistrationPage() {
         e.preventDefault()
         api.post("/sendOTP",userEmail)
             .then(({status,data})=>{
-                console.log(status);
-                console.log(data);
                 if(data.status === 201){
                     
                     setVerifyOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
@@ -100,8 +93,6 @@ function RegistrationPage() {
         e.preventDefault()
         api.post("/verifyOTP",{...userEmail,...userOTP})
             .then(({status,data})=>{
-                console.log(status);
-                console.log(data);
                 if(data.status === 201){
                     setVerifyOtpApiMsg({msg: "OTP Verified Sucessfully.", isError: false})
                     setIsVerified(true)
@@ -129,8 +120,6 @@ function RegistrationPage() {
         setVerificationModalMsg("Registering....")
         api.post("/register",{...formData,...userEmail})
             .then(({status,data})=>{
-                console.log(status);
-                console.log(data);
                 if(data.status === 201){
                     setVerificationModalMsg(null)
                     setShowConfetti(true)

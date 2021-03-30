@@ -50,13 +50,10 @@ export default function App() {
               setVerificationModalMsg(null)
 
             }
-            console.log(status)
-            console.log(data)
             setVerificationModalMsg(null)
 
           })
           .catch((error)=>{
-            console.log(error)
             setVerificationModalMsg(null)
 
           })

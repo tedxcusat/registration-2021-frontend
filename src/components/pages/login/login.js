@@ -13,7 +13,6 @@ function Login() {
     let [apiMsg,setApiMsg] = useState(null)
     let handleFormChange = (e)=>{
         setFormData({  ...formData , [e.target.name] : e.target.value })
-        console.log(formData);
     }
     let handleFormSubmit = (e)=>{
         e.preventDefault()
@@ -22,7 +21,6 @@ function Login() {
             msg: "Logging in...."
         })
         api.post('/login',formData).then(({status,data})=> {
-            console.log(data);
             if(data.status===201){
                 setApiMsg({
                     isError: false,
@@ -31,7 +29,6 @@ function Login() {
                 localStorage.setItem('tedx-cusat-token-data',JSON.stringify(data))
                 setTokenData(data)
                 setIsAuthenticated(true)
-                console.log(JSON.stringify(data));
             }else if(data.status!==201){
                 setApiMsg({
                     isError: true,
