@@ -26,6 +26,7 @@ function RegistrationPage() {
     let [userOTP,setUserOTP] = useState(null)
     let [showConfetti,setShowConfetti] = useState(false)
     let [verificationModalMsg,setVerificationModalMsg] = useState(null)
+    let [isTermsAccepted,setIsTermsAccepted] = useState(false)
     useEffect(()=>{
         if(payment_id){
             setVerificationModalMsg("Verifying Payment...")
@@ -257,13 +258,14 @@ function RegistrationPage() {
                         <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
                             <div className="form-item-row">
                                 <label htmlFor="customerName">Name:</label>
-                                <input required name="customerName" type="text"/>
+                                <input placeholder="Ex: John Doe" required name="customerName" type="text" />
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="email">E-mail:</label>
-                                <input required defaultValue={userEmail.email} disabled name="email" type="email" />
+                                <input placeholder="Ex: someone@internet.org" required defaultValue={userEmail.email} disabled name="email" type="email" />
                             </div>
                             <div className="form-item-row">
+                                <p className="ensure-address">Please note down the password for future references. Password cant't be changed.</p>
                                 <label htmlFor="password">Password</label>
                                 <input required name="password" type="password"/>
                             </div>
@@ -273,7 +275,7 @@ function RegistrationPage() {
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="phoneNo">Phone Number:</label>
-                                <input required name="phoneNo" type="text"/>
+                                <input placeholder="Ex: 9455842621" required name="phoneNo" type="text"/>
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="gender">Gender:</label>
@@ -289,18 +291,26 @@ function RegistrationPage() {
                                 <input required name="age" type="text"/>
                             </div>
                             <div className="form-item-row">
+                                <p className="ensure-address">Please fill out your full correct address. You might receive a little something from us.</p>
                                 <label htmlFor="houseName">House Name:</label>
                                 <input required name="houseName" type="text"/>
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="address">Address:</label>
-                                <textarea className="address-input" required name="address" type="text"/>
+                                <textarea placeholder="Add your address here." className="address-input" required name="address" type="text"/>
                             </div>
                             <div className="form-item-row">
                                 <label htmlFor="pin">Pincode:</label>
                                 <input required name="pin" type="number"/>
                             </div>
-                            <button className="submit-button-1" type="submit">Submit</button>
+                            <div className="form-item-row-terms">
+                                <input onChange={()=>{setIsTermsAccepted(!isTermsAccepted)}} name="isChecked" type="checkbox" defaultChecked={isTermsAccepted} />
+                                <label htmlFor="isChecked">By filling this form, you are accepting our <a href="https://tedxcusat.in/terms.pdf" >Terms & Conditions.</a></label>
+                            </div>
+                            <button style={{ 
+                                opacity: isTermsAccepted ? 1 : 0.5, 
+                                cursor: isTermsAccepted ? 'pointer' : 'not-allowed'
+                              }} disabled={!isTermsAccepted} className="submit-button-1" type="submit">Submit</button>
                         </form>
                         { registrationApiMsg &&  <p className={registrationApiMsg.isError ? "error-message" : "success-message" }>{registrationApiMsg.msg}</p>}
 
@@ -318,6 +328,28 @@ let StyledPage = styled.div`
     margin-left: 350px;
     overflow: hidden;
     padding-bottom: 80px;
+    .ensure-address{
+        font-size: 15px;
+        color: black;
+        width: 300px;
+        font-weight: bold;
+        padding: 10px;
+        background-color: rgba(255, 0, 0, 0.377);
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+    .form-item-row-terms{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        label{
+            font-size: 12px;
+        }
+        input{
+            margin-right: 10px;
+            width: 20px;
+        }
+    }
     .auto-verification-modal-container{
         width: 100vw;
         height: 100vh;
@@ -562,6 +594,10 @@ let StyledPage = styled.div`
         }
         .congrats-modal-title{
             font-size: 20px!important;
+        }
+        .ensure-address{
+            width: 250px;
+
         }
     }
 `
