@@ -103,16 +103,22 @@ function NavBar({activePage}) {
                                 <p>Stream</p>
                             </Link>
                         </div>
-                        <div className={`ham-link ${location.pathname ==="/payment" ? 'ham-link-active' : '' }`}>
-                            <Link style={{ textDecoration: 'none' }} to="/payment">
-                                <p>Ticketing</p>
-                            </Link>
-                        </div>
-                        <div className={`ham-link ${location.pathname ==="/registration" ? 'ham-link-active' : '' }`}>
-                            <Link style={{ textDecoration: 'none' }} to="/registration">
-                                <p>Registration</p>
-                            </Link>
-                        </div>
+                        {
+                            !isAuthenticated &&
+                            <div className={`ham-link ${location.pathname ==="/payment" ? 'ham-link-active' : '' }`}>
+                                <Link style={{ textDecoration: 'none' }} to="/payment">
+                                    <p>Ticketing</p>
+                                </Link>
+                            </div>
+                        }  
+                        { 
+                            !isAuthenticated &&
+                            <div className={`ham-link ${location.pathname ==="/registration" ? 'ham-link-active' : '' }`}>
+                                <Link style={{ textDecoration: 'none' }} to="/registration">
+                                    <p>Registration</p>
+                                </Link>
+                            </div>
+                        }
                         <div className={`ham-link ${location.pathname ==="/login" ? 'ham-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to={`/${isAuthenticated ? "logout" : "login"}`}>
                             <p>{isAuthenticated ? "Logout" : "Login"}</p>
