@@ -90,10 +90,13 @@ function NavBar({activePage}) {
                     exit={{  height: 0, opacity: 0, overflow: 'hidden' }}
                 >
                     <div className="ham-links-container">
-                        <div className={`ham-link ${location.pathname ==="/" ? 'ham-link-active' : '' }`}>
-                            <Link style={{ textDecoration: 'none' }} to="/">
-                                <p>Home</p>
-                            </Link>
+                        <div 
+                            onClick={()=>{
+                                window.location.href = 'https://tedxcusat.in'; 
+                            }} 
+                            className={`ham-link ${location.pathname ==="/" ? 'ham-link-active' : '' }`}
+                        >
+                            <p>Home</p>
                         </div>
                         <div className={`ham-link ${location.pathname ==="/stream" ? 'ham-link-active' : '' }`}>
                             <Link style={{ textDecoration: 'none' }} to="/stream">
