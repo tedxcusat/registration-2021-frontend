@@ -64,7 +64,7 @@ function RegistrationPage() {
             .then(({status,data})=>{
                 if(data.status === 201){
                     
-                    setReqOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
+                    setReqOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail. Check in SPAM if not found in inbox..", isError: false} )
                     setHasSentVerification(true)
                 }else{
                     setReqOtpApiMsg({msg: data.message, isError: true} )
@@ -80,13 +80,13 @@ function RegistrationPage() {
             .then(({status,data})=>{
                 if(data.status === 201){
                     
-                    setVerifyOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail.", isError: false} )
+                    setVerifyOtpApiMsg({msg: "OTP Sent Sucessfully. Please Check your E-mail. Check in SPAM if not found in inbox.", isError: false} )
                     setHasSentVerification(true)
                 }else{
                     setVerifyOtpApiMsg({msg: data.message, isError: true} )
                 }
             }).catch((error)=>{
-                setVerifyOtpApiMsg({msg: 'OTP Sending failed. Please Retry', isError: true})
+                setVerifyOtpApiMsg({msg: 'OTP Sending failed. Please Retry.', isError: true})
             })
     }
 
@@ -190,7 +190,7 @@ function RegistrationPage() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
                     >
-                        <p className="page-subtitle-2">Please Check your E-mail for the OTP:</p>
+                        <p className="page-subtitle-2">Please Check your E-mail for the OTP. Check in SPAM if not found in Inbox:</p>
                         <form autocomplete="off" onChange={handleOTPFormChange} onSubmit={verifyOTP}>
                             <div className="form-item-row">
                                 <label>OTP:</label>
