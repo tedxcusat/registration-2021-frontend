@@ -3,14 +3,26 @@ import styled from 'styled-components';
 import Countdown from 'react-countdown';
 import NavBar from '../../common/NavBar';
 import './bgStyles.css'
+import { motion } from "framer-motion"
 
 function StreamPage() {
     return(
         <StyledPage>
             <NavBar />
-            <h1>Starting in:</h1>
-            <Countdown className="countdown-timer" date={new Date("April 05, 2021 18:00:00")} />
-            <div className="stream-background">
+            <motion.div 
+                initial={{ opacity: 0, scale: 0}}
+                animate={{ opacity: 1, scale: 1}}
+                exit={{ opacity: 0 }} 
+                transition={{delay: 0.3}}
+                className="countdown-container"
+            >
+                <h1>Starting in:</h1>
+                <Countdown className="countdown-timer" date={new Date("April 05, 2021 18:00:00")} />
+            </motion.div>
+            <div
+                
+                className="stream-background"
+            >
                 <div id='stars'></div>
                 <div id='stars2'></div>
                 <div id='stars3'></div>
@@ -32,6 +44,12 @@ let StyledPage = styled.div`
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
     color: white;
+    .countdown-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     .stream-background{
         position: fixed;
         left: 0;

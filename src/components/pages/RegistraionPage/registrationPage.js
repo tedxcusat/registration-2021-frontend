@@ -231,7 +231,7 @@ function RegistrationPage() {
                                         exit={{ opacity: 0, translateX: "-50%", translateY: "-50%" }}
                                         className="congrats-modal"
                                     >
-                                        <p className="congrats-modal-title">Thank you {formData.customerName} for registring for the event!</p>
+                                        <p className="congrats-modal-title">Thank you {formData.customerName} for registering.</p>
                                         <motion.img 
                                             initial={{ opacity: 0, translateY: 1000, translateX: "-50%",}}
                                             animate={{ opacity: 1, translateY: 0, translateX: "-50%",}}
@@ -245,7 +245,7 @@ function RegistrationPage() {
                                                 marginTop: 20
                                             }}
                                         to="/login">
-                                            <button style={{marginLeft: 'auto',marginRight: 'auto'}}  className="submit-button-1" >Goto Login</button>
+                                            <button style={{marginLeft: 'auto',marginRight: 'auto'}}  className="submit-button-1" >Go to Login</button>
                                         </Link>
                                     </motion.div>
                                 </motion.div>
