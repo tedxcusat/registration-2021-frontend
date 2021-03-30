@@ -13,7 +13,18 @@ function NavBar({activePage}) {
     console.log(location);
     return (
     <>
-        <StyledNavbar>
+        <StyledNavbar
+            style={
+                location.pathname ==="/stream" && isAuthenticated ?
+                { 
+                    background:  'rgba(0,0,0,0.2)',
+                    boxShadow: 'none',
+                    backdropFilter: 'blur(5px)',
+                }
+                :
+                { background: 'linear-gradient(180deg,#E12200 0%, #BC1C00 100%)' }
+            }
+        >
             <div className="link-logo-container">
                 <div className="logo-container">
                     <img src={logo} alt=""/>
@@ -24,7 +35,9 @@ function NavBar({activePage}) {
                             <p>Home</p>
                         </Link>
                     </div>
-                    <div className={`nav-link ${location.pathname ==="/stream" ? 'nav-link-active' : '' }`}>
+                    <div 
+                        style={ {border: location.pathname ==="/stream" ? '2px solid red' : ''  }}
+                        className={`nav-link ${location.pathname ==="/stream" ? 'nav-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to="/stream">
                             <p>Stream</p>
                         </Link>
@@ -81,22 +94,22 @@ function NavBar({activePage}) {
                                 <p>Home</p>
                             </Link>
                         </div>
-                        <div className={`ham-link ${location.pathname ==="/stream" ? 'ham-link-active' : '0' }`}>
+                        <div className={`ham-link ${location.pathname ==="/stream" ? 'ham-link-active' : '' }`}>
                             <Link style={{ textDecoration: 'none' }} to="/stream">
                                 <p>Stream</p>
                             </Link>
                         </div>
-                        <div className={`ham-link ${location.pathname ==="/payment" ? 'ham-link-active' : '0' }`}>
+                        <div className={`ham-link ${location.pathname ==="/payment" ? 'ham-link-active' : '' }`}>
                             <Link style={{ textDecoration: 'none' }} to="/payment">
                                 <p>Ticketing</p>
                             </Link>
                         </div>
-                        <div className={`ham-link ${location.pathname ==="/registration" ? 'ham-link-active' : '0' }`}>
+                        <div className={`ham-link ${location.pathname ==="/registration" ? 'ham-link-active' : '' }`}>
                             <Link style={{ textDecoration: 'none' }} to="/registration">
                                 <p>Registration</p>
                             </Link>
                         </div>
-                        <div className={`ham-link ${location.pathname ==="/login" ? 'ham-link-active' : '0' }`}>
+                        <div className={`ham-link ${location.pathname ==="/login" ? 'ham-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to={`/${isAuthenticated ? "logout" : "login"}`}>
                             <p>{isAuthenticated ? "Logout" : "Login"}</p>
                         </Link>
@@ -121,7 +134,6 @@ let StyledNavbar = styled.nav`
     justify-content: space-between;
     width: 250px;
     height: 100vh;
-    background: linear-gradient(180deg,#E12200 0%, #BC1C00 100%);
     box-shadow: 10px 0px 40px rgb(255 0 0 / 58%);
     z-index: 50;
     .ham-menu{

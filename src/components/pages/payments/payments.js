@@ -25,12 +25,15 @@ function Payments() {
                 <div className="important-instruction">
                     <h3 className="important-instruction-title">Important Instructions:</h3>
                     <p className="important-steps"><span className="imp-step">Step 1:</span> Pay <span className="ticket-price-card">₹199</span> for ticket.</p>
-                    <p className="important-steps"><span className="imp-step">Step 2:</span> After Sucessfull payment, you will be prompted to verify your payment.</p>
-                    <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull verification, fill the registration form.</p>
+                    <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull payment verification, fill the registration form. 
+                    If Automatic payment fails, you will be prompted to verify your payment manually.</p>
                     <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
                     <p className="ticket-price">Ticket Price: ₹199</p>
                     <form id="tedx-payment-button"></form>
                     <p className="ticket-price">After Sucessfull payment, register yourself <Link style={{ color: 'black'}} to="/register">here</Link></p>
+                </div>
+                <div className="important-instruction">
+                    <p className="ticket-price">Ticket Price: ₹199</p>
                 </div>
             </div>
         </StyledTicketPage>

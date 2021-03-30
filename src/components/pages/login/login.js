@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { appContext } from "../../../appContext";
 import NavBar from '../../common/NavBar';
+import { motion } from "framer-motion"
 import { Redirect } from 'react-router-dom'
 
 function Login() {
@@ -42,33 +43,38 @@ function Login() {
         })
     }
     return(
-        <StyledPage>
+        <div style={{overflow: 'hidden'}}>
             <NavBar />
-            {isAuthenticated && <Redirect to="/stream" />}
-            <h1 className="page-title">Login Page</h1>
-            <p className="page-subtitle">Before you login make sure you have complete the payment and registration</p>
-            <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
-                <div className="form-item-row">
-                    <label htmlFor="customerEmail">Email Id:</label>
-                    <input type="customerEmail" name="emailId" required/>
-                </div>
-                <div className="form-item-row">
-                    <label>Password:</label>
-                    <input type="password" name="password"  required/>
-                </div>
-                <input className="submit-button-1" type="submit" value="Login" />
-            </form>
-            <Link  to="/payment">
-                <h2 className="not-yet-registered">Not yet registered? Get your tickets now!</h2>
-            </Link>
-            { apiMsg &&  <p className={apiMsg.isError ? "error-message" : "success-message" }>{apiMsg.msg}</p>}
-        </StyledPage>
+            <StyledPage
+                initial={{ opacity: 0, translateX: 200 }}
+                animate={{ opacity: 1,  translateX: 0}}
+            >
+                {isAuthenticated && <Redirect to="/stream" />}
+                <h1 className="page-title">Login Page</h1>
+                <p className="page-subtitle">Before you login make sure you have complete the payment and registration</p>
+                <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
+                    <div className="form-item-row">
+                        <label htmlFor="customerEmail">Email Id:</label>
+                        <input type="customerEmail" name="emailId" required/>
+                    </div>
+                    <div className="form-item-row">
+                        <label>Password:</label>
+                        <input type="password" name="password"  required/>
+                    </div>
+                    <input className="submit-button-1" type="submit" value="Login" />
+                </form>
+                <Link  to="/payment">
+                    <h2 className="not-yet-registered">Not yet registered? Get your tickets now!</h2>
+                </Link>
+                { apiMsg &&  <p className={apiMsg.isError ? "error-message" : "success-message" }>{apiMsg.msg}</p>}
+            </StyledPage>
+        </div>
     );
 }
 
 export default Login;
 
-let StyledPage = styled.div`
+let StyledPage = styled(motion.div)`
     margin-left: 310px;
     .page-title{
         font-size: 45px;

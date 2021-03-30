@@ -115,6 +115,7 @@ function RegistrationPage() {
     
     let sendRegistraionToAPi = (e) =>{
         e.preventDefault()
+        
         if(formData.password !== formData.repassword) {
             setRegistrationApiMsg({msg: "Passwords Don't Match.", isError: true})
             return null;
@@ -125,17 +126,21 @@ function RegistrationPage() {
             setRegistrationApiMsg({msg: "Please enter a valid Phone number.", isError: true})
             return null;
         }
+        setVerificationModalMsg("Registering....")
         api.post("/register",{...formData,...userEmail})
             .then(({status,data})=>{
                 console.log(status);
                 console.log(data);
                 if(data.status === 201){
+                    setVerificationModalMsg(null)
                     setShowConfetti(true)
                     setRegistrationApiMsg({msg: "Registration Sucessfull", isError: false})
                 }else{
+                    setVerificationModalMsg(null)
                     setRegistrationApiMsg({msg: data.message, isError: true})
                 }
             }).catch((error)=>{
+                setVerificationModalMsg(null)
                 setRegistrationApiMsg({msg: 'Regsitration Failed. Please try again.', isError: true})
             })
     }
@@ -147,12 +152,22 @@ function RegistrationPage() {
             <AnimatePresence>
             { 
                 verificationModalMsg && 
-                <div className="auto-verification-modal-container">
-                    <div className="auto-verification-modal">
+                <motion.div
+                    initial={{ opacity: 0}}
+                    animate={{ opacity: 1}}
+                    exit={{ opacity: 0 }}
+                    className="auto-verification-modal-container"
+                >
+                     <motion.div
+                            initial={{ scale: 0, translateY: 200 }}
+                            animate={{ scale: 1,  translateY: 0}}
+                            exit={{ opacity: 0 }}
+                            className="auto-verification-modal"
+                    >
                         <img src={spinner} alt=""/>
                         <p>{verificationModalMsg}</p>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             }
             </AnimatePresence>
             <h1 className="page-title">Registration</h1>
@@ -205,18 +220,33 @@ function RegistrationPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-                    >   { 
+                    >   
+                    <AnimatePresence>
+                        { 
                             showConfetti &&
                             <>
-                                <div className="confetti-container">
+                                <motion.div
+                                    initial={{ opacity: 0}}
+                                    animate={{ opacity: 1}}
+                                    exit={{ opacity: 0 }}
+                                    className="confetti-container"
+                                >
                                     <Confetti
                                         width={window.innerWidth}
                                         height={window.innerHeight}
                                         className="payment-sucess-confetti"
                                     />
-                                    <div className="congrats-modal">
+                                    <motion.div
+                                        initial={{ scale: 0, translateX: "-50%", translateY: "-50%"}}
+                                        animate={{ scale: 1, translateX: "-50%", translateY: "-50%"}}
+                                        exit={{ opacity: 0, translateX: "-50%", translateY: "-50%" }}
+                                        className="congrats-modal"
+                                    >
                                         <p className="congrats-modal-title">Thank you {formData.customerName} for registring for the event!</p>
-                                        <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>
+                                        <motion.img 
+                                            initial={{ opacity: 0, translateY: 1000, translateX: "-50%",}}
+                                            animate={{ opacity: 1, translateY: 0, translateX: "-50%",}}
+                                            className="tedxcusat-ticket" src={ticketIcon} alt=""/>
                                         <p className="congrats-modal-subtitle">You can now login!</p>
                                         <Link 
                                             style={{
@@ -228,11 +258,12 @@ function RegistrationPage() {
                                         to="/login">
                                             <button style={{marginLeft: 'auto',marginRight: 'auto'}}  className="submit-button-1" >Goto Login</button>
                                         </Link>
-                                    </div>
-                                </div>
+                                    </motion.div>
+                                </motion.div>
                                 <div className="confetti-container-backdrop"></div>
                             </>
                         }
+                    </AnimatePresence>
                         <p className="page-subtitle-2">Payment Verified Sucessfully, Please enter following details to complete your account:</p>
                         <form onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
                             <div className="form-item-row">
