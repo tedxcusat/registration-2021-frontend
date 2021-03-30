@@ -31,9 +31,9 @@ function Payments() {
                 <div className="important-instruction">
                     <h3 className="important-instruction-title">Important Instructions:</h3>
                     <p className="important-steps"><span className="imp-step">Step 1:</span> Pay <span className="ticket-price-card">₹199</span> for ticket.</p>
-                    <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull payment verification, fill the registration form. 
+                    <p className="important-steps"><span className="imp-step">Step 2:</span> After Sucessfull payment verification, fill the registration form. 
                     If Automatic payment fails, you will be prompted to verify your payment manually.</p>
-                    <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
+                    <p className="important-steps"><span className="imp-step">Step 3:</span> After Registration you can login in on the event day to stream the event.</p>
                     <p className="ticket-price">Ticket Price: ₹199</p>
                     <p className="ticket-price">By proceeding to payment, you are accepting our  <a href="https://tedxcusat.in/terms.pdf" > Terms & Conditions.</a> </p>
                     <form id="tedx-payment-button"></form>
