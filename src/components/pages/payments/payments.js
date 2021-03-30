@@ -13,7 +13,7 @@ function Payments() {
         const Script = document.createElement("script");
         const Form = document.getElementById('tedx-payment-button');
         Script.setAttribute('src','https://checkout.razorpay.com/v1/payment-button.js')
-        Script.setAttribute('data-payment_button_id','pl_Gpgp7rIT7HcdEC')
+        Script.setAttribute('data-payment_button_id','pl_Gpxvgf0nur5e1Y')
         Form.appendChild(Script);
     },[])
     return (
