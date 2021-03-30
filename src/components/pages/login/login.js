@@ -12,7 +12,11 @@ function Login() {
     let [formData,setFormData] = useState({})
     let [apiMsg,setApiMsg] = useState(null)
     let handleFormChange = (e)=>{
-        setFormData({  ...formData , [e.target.name] : e.target.value })
+        if(e.target.name === "emailId"){
+            setFormData({  ...formData , [e.target.name] : e.target.value.split(" ").join("") })
+        }else{
+            setFormData({  ...formData , [e.target.name] : e.target.value })
+        }
     }
     let handleFormSubmit = (e)=>{
         e.preventDefault()
@@ -49,9 +53,9 @@ function Login() {
                 {isAuthenticated && <Redirect to="/stream" />}
                 <h1 className="page-title">Login Page</h1>
                 <p className="page-subtitle">Before you login make sure you have completed the payment and registration</p>
-                <form  autocomplete="off" onSubmit={handleFormSubmit} onChange={handleFormChange}>
+                <form  autoComplete="off" onSubmit={handleFormSubmit} onChange={handleFormChange}>
                     <div className="form-item-row">
-                        <label htmlFor="customerEmail">Email Id:</label>
+                        <label htmlFor="emailId">Email Id:</label>
                         <input type="customerEmail" name="emailId" required/>
                     </div>
                     <div className="form-item-row">

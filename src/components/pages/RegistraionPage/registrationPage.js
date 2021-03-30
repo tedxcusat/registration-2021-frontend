@@ -148,7 +148,7 @@ function RegistrationPage() {
                     exit={{ opacity: 0 }}
                     className="auto-verification-modal-container"
                 >
-                     <motion.div
+                    <motion.div
                             initial={{ scale: 0, translateY: 200 }}
                             animate={{ scale: 1,  translateY: 0}}
                             exit={{ opacity: 0 }}
@@ -171,7 +171,7 @@ function RegistrationPage() {
                         exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
                     >
                         <p className="page-subtitle-2">Automatic verification failed? <br/> Don't worry! Let's verify your payment manually:</p>
-                        <form autocomplete="off" onChange={handleEmailFormChange} onSubmit={sendVerificationRequest}>
+                        <form autoComplete="off" onChange={handleEmailFormChange} onSubmit={sendVerificationRequest}>
                             <div className="form-item-row">
                                 <label>E-mail:</label>
                                 <input name="email" placeholder="Ex: someone@internet.org" type="email" required/>
@@ -191,7 +191,7 @@ function RegistrationPage() {
                         exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
                     >
                         <p className="page-subtitle-2">Please Check your E-mail for the OTP. Check in SPAM if not found in Inbox:</p>
-                        <form autocomplete="off" onChange={handleOTPFormChange} onSubmit={verifyOTP}>
+                        <form autoComplete="off" onChange={handleOTPFormChange} onSubmit={verifyOTP}>
                             <div className="form-item-row">
                                 <label>OTP:</label>
                                 <input className="otp-input" type="text" required/>
@@ -255,7 +255,7 @@ function RegistrationPage() {
                         }
                     </AnimatePresence>
                         <p className="page-subtitle-2">Payment Verified Sucessfully, Please enter following details to complete your account:</p>
-                        <form autocomplete="off" onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
+                        <form autoComplete="off" onSubmit={sendRegistraionToAPi} onChange={handelFormChange}>
                             <div className="form-item-row">
                                 <label htmlFor="customerName">Name:</label>
                                 <input placeholder="Ex: John Doe" required name="customerName" type="text" />
