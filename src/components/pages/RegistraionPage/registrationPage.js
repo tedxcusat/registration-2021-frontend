@@ -46,7 +46,7 @@ function RegistrationPage() {
 
     },[])
     let handleEmailFormChange = (e) =>{
-        setUserEmail({'email': e.target.value})
+        setUserEmail({'email': e.target.value.split(" ").join("")})
     }
     
     let handleOTPFormChange = (e) =>{
