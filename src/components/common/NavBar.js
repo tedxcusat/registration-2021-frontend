@@ -30,13 +30,14 @@ function NavBar({activePage}) {
                     <img src={logo} alt=""/>
                 </div>
                 <div className="nav-links-container">
-                    <div className={`nav-link ${location.pathname ==="/" ? 'nav-link-active' : '' }`}>
-                        <Link style={{ textDecoration: 'none' }} to="/">
+                    <div onClick={()=>{
+                         window.location.href = 'https://tedxcusat.in'; 
+                    }} 
+                        className={`nav-link ${location.pathname ==="/" ? 'nav-link-active' : '' }`}>
                             <p>Home</p>
-                        </Link>
                     </div>
                     <div 
-                        style={ {border: location.pathname ==="/stream" ? '2px solid red' : ''  }}
+                        style={ {border: location.pathname ==="/stream" && isAuthenticated ? '2px solid red' : ''  }}
                         className={`nav-link ${location.pathname ==="/stream" ? 'nav-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to="/stream">
                             <p>Stream</p>

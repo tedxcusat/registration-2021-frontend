@@ -25,7 +25,6 @@ function Home(props) {
                 <p className="important-steps"><span className="imp-step">Step 3:</span> After Sucessfull payment verification, fill the registration form. 
                 If Automatic payment fails, you will be prompted to verify your payment manually.</p>
                 <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
-                <p className="ticket-price">Ticket Price: ₹199</p>
             </div>
         </StyledHomePage>
     );
@@ -34,7 +33,7 @@ function Home(props) {
 export default Home;
 
 let StyledHomePage = styled.div`
-    background: linear-gradient(45deg,#ffffff 0%, #ffffff 100%);
+    background: linear-gradient(45deg,rgba(0, 0, 0, 0.116) 0%, #ffffff 80%);
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -44,6 +43,9 @@ let StyledHomePage = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
+    body{
+        overflow-x: hidden!important;
+    }
     .welcome-to-tedx-cusat{
         font-size: 30px;
     }
@@ -54,9 +56,10 @@ let StyledHomePage = styled.div`
     }
     .important-instruction{
         margin-top: 50px;
-        margin-bottom: 100px;
+        margin-bottom: 20px;
         min-width: 300px;
         width: 90vw;
+        max-width: 550px;
         border-radius: 10px;
         padding: 20px;
         font-size: 20px;
@@ -64,7 +67,6 @@ let StyledHomePage = styled.div`
         background: linear-gradient(180deg,#E12200 0%, #BC1C00 100%);
         box-shadow: 0px 10px 40px rgb(255 0 0 / 58%);
         box-sizing: border-box;
-        max-width: 700px;
         text-align: left;
         /* align-self: center; */
         p{

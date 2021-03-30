@@ -1,10 +1,11 @@
 import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import ticketIcon from '../../assets/ticket.png'
 import NavBar from '../../common/NavBar'
 import { appContext } from "../../../appContext";
 import { Redirect } from 'react-router-dom'
+import { motion } from "framer-motion"
+
 
 function Payments() {
     let { isAuthenticated } = useContext(appContext)
@@ -19,7 +20,12 @@ function Payments() {
         <StyledTicketPage>
             <NavBar />
             {isAuthenticated && <Redirect to="/stream" />}
-            <div className="page-container">
+            <motion.div
+                initial={{ opacity: 0, translateX: 200}}
+                animate={{ opacity: 1, translateX: 0}}
+                exit={{ opacity: 0 }}
+                className="page-container"
+            >
                 <h1 className="ticket-page-title">Get a Ticket</h1>
                 <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>
                 <div className="important-instruction">
@@ -30,12 +36,10 @@ function Payments() {
                     <p className="important-steps"><span className="imp-step">Step 4:</span> After Registration you can login in on the event day to stream the event.</p>
                     <p className="ticket-price">Ticket Price: ₹199</p>
                     <form id="tedx-payment-button"></form>
-                    <p className="ticket-price">After Sucessfull payment, register yourself <Link style={{ color: 'black'}} to="/register">here</Link></p>
-                </div>
-                <div className="important-instruction">
                     <p className="ticket-price">Ticket Price: ₹199</p>
                 </div>
-            </div>
+                
+            </motion.div>
         </StyledTicketPage>
     )
 }
@@ -72,7 +76,7 @@ let StyledTicketPage = styled.section`
         font-size: 20px;
         color: white;
         background: linear-gradient(180deg,#E12200 0%, #BC1C00 100%);
-        box-shadow: 0px 10px 40px rgb(255 0 0 / 58%);
+        box-shadow: 5px 10px 20px rgb(255 0 0 / 58%);
         box-sizing: border-box;
         max-width: 700px;
         /* align-self: center; */
