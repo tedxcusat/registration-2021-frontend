@@ -21,10 +21,9 @@ function Home(props) {
             </section>
             <div className="important-instruction">
                 <h3 className="important-instruction-title">Important Instructions:</h3>
-                <p className="important-steps"><span className="imp-step">Step 1:</span> Pay <span className="ticket-price-card">₹199</span> for ticket.</p>
-                <p className="important-steps"><span className="imp-step">Step 2:</span> After Sucessfull payment verification, fill the registration form. 
-                If Automatic payment fails, you will be prompted to verify your payment manually.</p>
-                <p className="important-steps"><span className="imp-step">Step 3:</span> After Registration you can login in on the event day to stream the event.</p>
+                <p className="important-steps"><span className="imp-step">Step 1:</span> Click on "Pay to TEDxCUSAT" and proceed towards the payment gateway for completion of transaction process.</p>
+                <p className="important-steps"><span className="imp-step">Step 2:</span> Upon successful transaction verification, Fill up the registration form. In case of any discrepancies in the process, you will be prompted to verify again.</p>
+                <p className="important-steps"><span className="imp-step">Step 3:</span> After registration, join us on the event day by logging on the website to enjoy event stream.</p>
             </div>
         </StyledHomePage>
     );
