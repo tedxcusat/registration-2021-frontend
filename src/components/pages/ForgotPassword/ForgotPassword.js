@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import Navbar from '../../common/NavBar'
 import { motion, AnimatePresence } from "framer-motion"
-import { Link, Redirect } from 'react-router-dom'
 
 
 import { appContext } from "../../../appContext";
@@ -10,7 +9,7 @@ import { useLocation } from 'react-router-dom'
 
 
 function ForgotPassword() {
-    let { api, isAuthenticated} = useContext(appContext)
+    let { api} = useContext(appContext)
     const location = useLocation();
     let [isVerified,setIsVerified] = useState(false)
     let [reqOtpApiMsg,setReqOtpApiMsg] = useState(null)
@@ -103,7 +102,6 @@ function ForgotPassword() {
     return (
         <StyledPage>
             <Navbar />
-            {isAuthenticated && <Redirect to="/stream" />}
             <h1 className="page-title">Password reset.</h1>
             <AnimatePresence>
                 {
