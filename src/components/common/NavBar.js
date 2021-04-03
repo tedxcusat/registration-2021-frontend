@@ -58,8 +58,8 @@ function NavBar({activePage}) {
                         </Link>
                     </div>
                     }
-                    <div className={`nav-link ${location.pathname ==="/changePassword" ? 'nav-link-active' : '' }`}>
-                        <Link style={{ textDecoration: 'none' }} to="/changePassword">
+                    <div className={`nav-link ${location.pathname ==="/forgotPassword" ? 'nav-link-active' : '' }`}>
+                        <Link style={{ textDecoration: 'none' }} to="/forgotPassword">
                             <p>Change Password</p>
                         </Link>
                     </div>
