@@ -19,6 +19,8 @@ import { appContext } from './appContext'
 import apiUrl from './serverConfig'
 import axios from 'axios'
 import RegistrationPage from './components/pages/RegistraionPage/registrationPage';
+import ForgotPassword from './components/pages/ForgotPassword/ForgotPassword';
+
 import { useState } from 'react';
 
 let api = axios.create({
@@ -98,6 +100,9 @@ export default function App() {
           </Route>
           <Route exact path="/registration">
             <RegistrationPage />
+          </Route>
+          <Route exact path="/forgotPassword">
+            <ForgotPassword />
           </Route>
           <Route exact path="/login">
             <Login />

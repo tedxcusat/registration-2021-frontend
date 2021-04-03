@@ -18,6 +18,9 @@ function Home(props) {
                 <Link style={{textDecoration: 'none'}} to="/payment">
                     <SquareCard  cardImage={ticketIcon} cardText={"Tickets & Registartion"} />
                 </Link>
+                <Link style={{textDecoration: 'none'}} to="/forgotPassword">
+                    <SquareCard  cardImage="/key.svg" cardText={"Change Password"} />
+                </Link>
             </section>
             <div className="important-instruction">
                 <h3 className="important-instruction-title">Important Instructions:</h3>

@@ -58,6 +58,11 @@ function NavBar({activePage}) {
                         </Link>
                     </div>
                     }
+                    <div className={`nav-link ${location.pathname ==="/registration" ? 'nav-link-active' : '' }`}>
+                        <Link style={{ textDecoration: 'none' }} to="/registration">
+                            <p>Change Password</p>
+                        </Link>
+                    </div>
                 </div>
 
             </div>
@@ -85,7 +90,7 @@ function NavBar({activePage}) {
             {isHamOpen &&
                 <StyledHamMenu
                     initial={{ height: 0, overflow: 'hidden'}}
-                    animate={{ height: 400, overflow: 'hidden' }}
+                    animate={{ height: 500, overflow: 'hidden' }}
                     exit={{  height: 0, opacity: 0, overflow: 'hidden' }}
                 >
                     <div className="ham-links-container">
@@ -118,6 +123,13 @@ function NavBar({activePage}) {
                                 </Link>
                             </div>
                         }
+                        
+                        <div className={`ham-link ${location.pathname ==="/forgotPassword" ? 'ham-link-active' : '' }`}>
+                            <Link style={{ textDecoration: 'none' }} to="/forgotPassword">
+                                <p>Change Password</p>
+                            </Link>
+                        </div>
+                    
                         <div className={`ham-link ${location.pathname ==="/login" ? 'ham-link-active' : '' }`}>
                         <Link style={{ textDecoration: 'none' }} to={`/${isAuthenticated ? "logout" : "login"}`}>
                             <p>{isAuthenticated ? "Logout" : "Login"}</p>
