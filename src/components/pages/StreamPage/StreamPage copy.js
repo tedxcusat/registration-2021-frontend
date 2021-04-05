@@ -10,7 +10,9 @@ function StreamPage() {
             <div 
                 className="countdown-container"
             >
-                <h1>Event will start @ 6:15PM IST</h1>
+                <p>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
+                <Player />
+                <p>Player will be muted by default. Please unmute.</p>
             </div>
             
         </StyledPage>
@@ -19,20 +21,20 @@ function StreamPage() {
 
 export default StreamPage;
 
-// let Player = ()=>{
-//     return <>
-//         <iframe
-//         title="TEDxPlayer"
-//         className="tedx-player"
-//         src="https://app.onestream.live/embed?stream_url=https://app.onestream.live/api/v2/rtmp/auth/stream/cdn/index.m3u8?key=d_auth_201978_k5w2c1y2n"
-//         width={window.innerWidth*0.7}
-//         height={window.innerWidth*0.70*0.56}
-//         frameBorder="0"
-//         allowFullScreen
-//         >
-//         </iframe>
-//     </>
-// }
+let Player = ()=>{
+    return <>
+        <iframe
+        title="TEDxPlayer"
+        className="tedx-player"
+        src="https://app.onestream.live/embed?stream_url=https://app.onestream.live/api/v2/rtmp/auth/stream/cdn/index.m3u8?key=d_auth_201978_k5w2c1y2n"
+        width={window.innerWidth*0.7}
+        height={window.innerWidth*0.70*0.56}
+        frameBorder="0"
+        allowFullScreen
+        >
+        </iframe>
+    </>
+}
 
 
 let StyledPage = styled.div`
