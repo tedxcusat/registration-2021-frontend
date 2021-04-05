@@ -10,9 +10,9 @@ function StreamPage() {
             <div 
                 className="countdown-container"
             >
-                <p>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
+                <p style={{textAlign: 'center'}}>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
                 <Player />
-                <p>Player will be muted by default. Please unmute.</p>
+                <p style={{textAlign: 'center'}}>Player will be muted by default. Please unmute.</p>
             </div>
             
         </StyledPage>
