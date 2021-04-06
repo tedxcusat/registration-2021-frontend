@@ -1,4 +1,5 @@
 import React from 'react';
+import Confetti from 'react-confetti';
 import styled from 'styled-components';
 import NavBar from '../../common/NavBar';
 import './bgStyles.css'
@@ -10,10 +11,14 @@ function StreamPage() {
             <div 
                 className="countdown-container"
             >
-                <p style={{textAlign: 'center'}}>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
-                <p style={{textAlign: 'center'}}>Find the Program Schedule <a href="/schedule.pdf">here.</a></p>
-                <Player />
-                <p style={{textAlign: 'center'}}>Player will be muted by default. Please unmute.</p>
+             <h1>And that’s a wrap! Thank you for tuning in for TEDxCUSAT 2021</h1>
+             <div className="confetti-container">
+                <Confetti
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    className="payment-sucess-confetti"
+                />
+             </div>
             </div>
             
         </StyledPage>
@@ -22,20 +27,20 @@ function StreamPage() {
 
 export default StreamPage;
 
-let Player = ()=>{
-    return <>
-        <iframe
-        title="TEDxPlayer"
-        className="tedx-player"
-        src="https://app.onestream.live/embed?stream_url=https://app.onestream.live/api/v2/rtmp/auth/stream/cdn/index.m3u8?key=d_auth_201978_k5w2c1y2n"
-        width={window.innerWidth*0.5}
-        height={window.innerWidth*0.5*0.56}
-        frameBorder="0"
-        allowFullScreen
-        >
-        </iframe>
-    </>
-}
+// let Player = ()=>{
+//     return <>
+//         <iframe
+//         title="TEDxPlayer"
+//         className="tedx-player"
+//         src="https://app.onestream.live/embed?stream_url=https://app.onestream.live/api/v2/rtmp/auth/stream/cdn/index.m3u8?key=d_auth_201978_k5w2c1y2n"
+//         width={window.innerWidth*0.5}
+//         height={window.innerWidth*0.5*0.56}
+//         frameBorder="0"
+//         allowFullScreen
+//         >
+//         </iframe>
+//     </>
+// }
 
 
 let StyledPage = styled.div`
@@ -49,12 +54,19 @@ let StyledPage = styled.div`
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
     color: white;
-    
+    .confetti-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 200;
+    }
     .countdown-container{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding: 20px;
+
     }
     .stream-background{
         position: fixed;
