@@ -11,6 +11,7 @@ function StreamPage() {
                 className="countdown-container"
             >
                 <p style={{textAlign: 'center'}}>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
+                <p style={{textAlign: 'center'}}>Find the Program Schedule <a href="/schdule.pdf">here.</a></p>
                 <Player />
                 <p style={{textAlign: 'center'}}>Player will be muted by default. Please unmute.</p>
             </div>
