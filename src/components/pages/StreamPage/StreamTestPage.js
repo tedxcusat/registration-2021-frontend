@@ -10,7 +10,9 @@ function StreamPage() {
             <div 
                 className="countdown-container"
             >
-                <h1 style={{textAlign: 'center'}}>Thanks for tuning in. A restream will be done today 6 PM IST (APRIL 6th 2021)</h1>
+                <p style={{textAlign: 'center'}}>Please wait atleast 20 secs for the player to load. If it's not loading please refresh the page.</p>
+                <Player />
+                <p style={{textAlign: 'center'}}>Player will be muted by default. Please unmute.</p>
             </div>
             
         </StyledPage>

@@ -13,6 +13,7 @@ import Home from './components/pages/AppHome/Home';
 import Login from './components/pages/login/login'
 import Logout from './components/pages/Logout/Logout'
 import StreamPage from './components/pages/StreamPage/StreamPage'
+import StreamPageTest from './components/pages/StreamPage/StreamTestPage'
 import spinner from "./components/assets/spinner.svg"
 
 import { appContext } from './appContext'
@@ -93,6 +94,9 @@ export default function App() {
           
           <Route exact path="/stream">
             {isAuthenticated ? <StreamPage /> : <Login />}
+          </Route>
+          <Route exact path="/TinkuSuperGamerKiran">
+            {isAuthenticated ? <StreamPageTest /> : <Login />}
           </Route>
           
           <Route exact path="/payment">
