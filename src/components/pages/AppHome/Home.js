@@ -4,6 +4,8 @@ import loginIcon from '../../assets/log-in.svg'
 import ticketIcon from '../../assets/tickets.svg'
 import SquareCard from '../../common/SquareCard';
 import { Link } from "react-router-dom";
+import Confetti from 'react-confetti'
+
 
 function Home(props) {
     return (
@@ -22,12 +24,14 @@ function Home(props) {
                     <SquareCard  cardImage="/key.svg" cardText={"Change Password"} />
                 </Link>
             </section>
-            <div className="important-instruction">
-                <h3 className="important-instruction-title">Important Instructions:</h3>
-                <p className="important-steps"><span className="imp-step">Step 1:</span> Click on "Pay to TEDxCUSAT" and proceed towards the payment gateway for completion of transaction process.</p>
-                <p className="important-steps"><span className="imp-step">Step 2:</span> Upon successful transaction verification, Fill up the registration form. In case of any discrepancies in the process, you will be prompted to verify again.</p>
-                <p className="important-steps"><span className="imp-step">Step 3:</span> After registration, join us on the event day by logging on the website to enjoy event stream.</p>
-            </div>
+            <div className="confetti-container">
+                <Confetti
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    className="payment-sucess-confetti"
+                />
+                <h1 className="wrap-up-text">And that’s a wrap! Thank you for tuning in for TEDxCUSAT 2021</h1>
+             </div>
         </StyledHomePage>
     );
 }
@@ -47,6 +51,9 @@ let StyledHomePage = styled.div`
     text-align: center;
     body{
         overflow-x: hidden!important;
+    }
+    .wrap-up-text{
+        font-size: 20px;
     }
     .welcome-to-tedx-cusat{
         font-size: 30px;

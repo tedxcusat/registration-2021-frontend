@@ -9,7 +9,14 @@ import { motion } from "framer-motion"
 
 function Payments() {
     let { isAuthenticated } = useContext(appContext)
-     return (
+    useEffect(()=>{
+        const Script = document.createElement("script");
+        const Form = document.getElementById('tedx-payment-button');
+        Script.setAttribute('src','https://checkout.razorpay.com/v1/payment-button.js')
+        Script.setAttribute('data-payment_button_id','pl_GtzhXbvIV9mmvQ')
+        Form.appendChild(Script);
+    },[])
+    return (
         <StyledTicketPage>
             <NavBar />
             {isAuthenticated && <Redirect to="/stream" />}
@@ -19,7 +26,17 @@ function Payments() {
                 exit={{ opacity: 0 }}
                 className="page-container"
             >
-                <h1 className="ticket-page-title">Ticketing Closed. Thank you for joining TEDxCUSAT!</h1>
+                <h1 className="ticket-page-title">Get a Ticket</h1>
+                <img className="tedxcusat-ticket" src={ticketIcon} alt=""/>
+                <div className="important-instruction">
+                    <h3 className="important-instruction-title">Important Instructions:</h3>
+                    <p className="important-steps"><span className="imp-step">Step 1:</span> Click on "Pay to TEDxCUSAT" and proceed towards the payment gateway for completion of transaction process.</p>
+                    <p className="important-steps"><span className="imp-step">Step 2:</span> Upon successful transaction verification, Fill up the registration form. In case of any discrepancies in the process, you will be prompted to verify again.</p>
+                    <p className="important-steps"><span className="imp-step">Step 3:</span> After registration, join us on the event day by logging on the website to enjoy event stream</p>
+                    <p className="ticket-price">Ticket Price: ₹199</p>
+                    <p className="ticket-price">By proceeding to payment, you are accepting our  <a href="https://tedxcusat.in/terms.pdf" > Terms & Conditions.</a> </p>
+                    <form id="tedx-payment-button"></form>
+                </div>
                 
             </motion.div>
         </StyledTicketPage>
